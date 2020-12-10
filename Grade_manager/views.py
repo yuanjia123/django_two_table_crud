@@ -122,7 +122,8 @@ class Class_view(View):
             print("名字:",i.s_name)
             # 对机构进行排序
 
-        # 前端页面的?号后面是传参的意思   < a href = "?sort=students" > 哇咔咔 < / a >
+        # class_view.html页面的   a标签?号后面是传参的意思   < a href = "?sort=students" > 哇咔咔 < / a >、
+        #后端通过下面的方式进行拿值
         sort = request.GET.get("sort", "")
         print("sort----------------",sort)
         return render(request, 'class_view.html')
