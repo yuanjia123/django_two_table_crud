@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from Grade_manager.models import Grade,Student
 from django.views.generic.base import View
-
+# 分页
+from pure_pagination import Paginator,PageNotAnInteger
 # Create your views here.
 def insert(request):
 
@@ -126,4 +127,18 @@ class Class_view(View):
         #后端通过下面的方式进行拿值
         sort = request.GET.get("sort", "")
         print("sort----------------",sort)
-        return render(request, 'class_view.html')
+
+
+        # 对课程机构数据进行分页
+        s_all = Student.objects.all()
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        #对课程机构数据进行分页     per_page=5每页显示5条数据
+        p = Paginator(s_all,per_page=2, request=request)
+        students = p.page(page)
+
+        return render(request, 'class_view.html',{
+            'students':students
+        })

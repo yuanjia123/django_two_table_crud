@@ -6,5 +6,32 @@
 </head>
 <body>
 <a href="?sort=students">哇咔咔</a>
+
+
+<div class="pageturn">
+{#    <ul class="pagelist">#}
+        {% if students.has_previous %}
+                <li class="long"><a href="?{{students.previous_page_number.querystring}}">上一页</a></li>
+        {% endif %}
+
+        {% for page in students.pages %}
+            {% if page %}
+                {% ifequal page students.s_name %}
+                    <li class="active"><a href="?{{page.querystring}}">{{page}}</a></li>
+
+                {% else %}
+                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                {% endifequal %}
+            {% else %}
+                <li class = "none">...</li>
+            {% endif %}
+        {% endfor %}
+
+        {% if students.has_next %}
+            <li class="long"><a href="?{{students.next_page_number.querystring}}">下一页</a></li>
+        {% endif %}
+
+{#    </ul>#}
+</div>
 </body>
 </html>
