@@ -114,7 +114,15 @@ class Class_view(View):
     def get(self,request,id,*args,**kwargs):
         print("**************************",id)
         g = Grade.objects.filter(id=id).first()
+
+        #通过一个班级找到、班级所对应的全部学生
         nums = g.students()
         print("a-------------------------",nums)
         for i in nums:
             print("名字:",i.s_name)
+            # 对机构进行排序
+
+        # 前端页面的?号后面是传参的意思   < a href = "?sort=students" > 哇咔咔 < / a >
+        sort = request.GET.get("sort", "")
+        print("sort----------------",sort)
+        return render(request, 'class_view.html')
